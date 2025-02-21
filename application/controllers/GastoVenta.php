@@ -74,7 +74,7 @@ class GastoVenta extends CI_Controller {
 			//Set Relation
 			$crud->set_relation('ID_Sucursal', 'sucursal', 'Nombre');
 			$crud->set_relation('ID_Cajero', 'cajeros', '{Nombre} {Apellido}');
-			$crud->set_relation('ID_Gasto', 'Tipo_Gasto', 'Nombre');
+			$crud->set_relation('ID_Gasto', 'tipo_gasto', 'Nombre');
 			//SUBIR FOTO
 			$crud->set_field_upload('Foto','Facturas');
 			//WHERE
