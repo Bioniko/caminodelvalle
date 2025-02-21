@@ -66,7 +66,7 @@ class Reporte extends CI_Controller {
 	public function Ver()
 	{
 		if(isset($_GET['Desde']) && !Empty($_GET['Desde']) && isset($_GET['Hasta']) && !Empty($_GET['Hasta'])){		
-			$admin = "SELECT * FROM Cajeros WHERE ID = 1";
+			$admin = "SELECT * FROM cajeros WHERE ID = 1";
 			$adm = $this->db->query($admin)->row();
 			$moneda = "SELECT * FROM Moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
 			$mon = $this->db->query($moneda)->result();
@@ -80,7 +80,7 @@ class Reporte extends CI_Controller {
 	public function WhatsappReporte()
 	{
 		if(isset($_GET['Desde']) && !Empty($_GET['Desde']) && isset($_GET['Hasta']) && !Empty($_GET['Hasta'])){		
-			$admin = "SELECT * FROM Cajeros WHERE ID = 1";
+			$admin = "SELECT * FROM cajeros WHERE ID = 1";
 			$adm = $this->db->query($admin)->row();
 			$moneda = "SELECT * FROM Moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
 			$mon = $this->db->query($moneda)->result();
