@@ -55,7 +55,7 @@ class Inicio extends CI_Controller {
 						setcookie("Celular", $Suc->Celular, time()+365 * 24 * 60 * 60, "/");
 						setcookie("Celular2", $Suc->Celular2, time()+365 * 24 * 60 * 60, "/");
 					}
-					$Caj = $this->db->query("SELECT * FROM Cajeros WHERE ID = '".$fila->ID_Cajero."'")->row();
+					$Caj = $this->db->query("SELECT * FROM cajeros WHERE ID = '".$fila->ID_Cajero."'")->row();
 					if(isset($Suc)){
 						setcookie("Nombre_Cajero", $Caj->Nombre, time()+365 * 24 * 60 * 60, "/");
 						setcookie("Apellido_Cajero", $Caj->Apellido, time()+365 * 24 * 60 * 60, "/");
