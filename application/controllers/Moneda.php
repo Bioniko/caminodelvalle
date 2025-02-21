@@ -131,32 +131,32 @@ class Moneda extends CI_Controller {
 	}
 	function Factura($primary_key){
 		$url = base_url(); 
-		return $url.'index.php/Moneda/ImprimirFactura?id='.$primary_key;
+		return $url.'index.php/moneda/ImprimirFactura?id='.$primary_key;
 	}
 
 	function Caja($primary_key){
 		$url = base_url(); 
-		return $url.'index.php/Moneda/ImprimirCaja?id='.$primary_key;
+		return $url.'index.php/moneda/ImprimirCaja?id='.$primary_key;
 	}
 
 	function Inventario($primary_key){
 		$url = base_url(); 
-		return $url.'index.php/Moneda/ImprimirInventario?id='.$primary_key;
+		return $url.'index.php/moneda/ImprimirInventario?id='.$primary_key;
 	}
 
 	function Deposito($primary_key){
 		$url = base_url(); 
-		return $url.'index.php/Moneda/ImprimirDeposito?id='.$primary_key;
+		return $url.'index.php/moneda/ImprimirDeposito?id='.$primary_key;
 	}
 
 	function Whatsapp($primary_key){
 		$url = base_url(); 
-		return $url.'index.php/Moneda/ImprimirWhatsapp?id='.$primary_key;
+		return $url.'index.php/moneda/ImprimirWhatsapp?id='.$primary_key;
 	}
 
 	public function ImprimirFactura()
 	{
-		$moneda = "SELECT * FROM Moneda WHERE ID = ".$_GET['id'];
+		$moneda = "SELECT * FROM moneda WHERE ID = ".$_GET['id'];
 		$mon = $this->db->query($moneda)->row();
 		$fechamon = $mon->Fecha;
 		$fecha = (new DateTime($fechamon))->format('Y-m-d');
@@ -170,7 +170,7 @@ class Moneda extends CI_Controller {
 
 	public function ImprimirCaja()
 	{
-		$moneda = "SELECT * FROM Moneda WHERE ID = ".$_GET['id'];
+		$moneda = "SELECT * FROM moneda WHERE ID = ".$_GET['id'];
 		$mon = $this->db->query($moneda)->row();
 		$data = (object)array('mon' => $mon);
 		$this->load->view('1caja.php',(array)$data);
@@ -178,7 +178,7 @@ class Moneda extends CI_Controller {
 
 	public function ImprimirInventario()
 	{
-		$moneda = "SELECT * FROM Moneda WHERE ID = ".$_GET['id'];
+		$moneda = "SELECT * FROM moneda WHERE ID = ".$_GET['id'];
 		$mon = $this->db->query($moneda)->row();
 		$inventario = "SELECT * FROM inventario";
 		$inv = $this->db->query($inventario)->result();
@@ -188,7 +188,7 @@ class Moneda extends CI_Controller {
 
 	public function ImprimirDeposito()
 	{
-		$moneda = "SELECT * FROM Moneda WHERE ID = ".$_GET['id'];
+		$moneda = "SELECT * FROM moneda WHERE ID = ".$_GET['id'];
 		$mon = $this->db->query($moneda)->row();
 		$cajero = "SELECT * FROM Cajeros WHERE ID = ".$_COOKIE['caj_id'];
 		$caj = $this->db->query($cajero)->row();
@@ -200,7 +200,7 @@ class Moneda extends CI_Controller {
 	{
 		$admin = "SELECT * FROM Cajeros WHERE ID = 1";
 		$adm = $this->db->query($admin)->row();
-		$moneda = "SELECT * FROM Moneda WHERE ID = ".$_GET['id'];
+		$moneda = "SELECT * FROM moneda WHERE ID = ".$_GET['id'];
 		$mon = $this->db->query($moneda)->row();
 		$fechamon = $mon->Fecha;
 		$fecha = (new DateTime($fechamon))->format('Y-m-d');
