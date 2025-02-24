@@ -41,6 +41,7 @@ class GastoVenta extends CI_Controller {
 			session_start();
 			date_default_timezone_set("America/Tegucigalpa");
 			$fechaHoy = date('Y-m-d');
+			$crud->order_by('Fecha','desc');
 			if($_SESSION['tipo_acceso'] == "Cajero"){
 			$crud->unset_delete();
 			$crud->columns('ID_Gasto','Valor','Descripcion','Foto','Fecha');
