@@ -63,6 +63,7 @@ class Inventario extends CI_Controller {
 			$crud->set_relation('ID_Sucursal', 'sucursal', 'Nombre');
 			$crud->set_relation('ID_Cajero', 'cajeros', '{Nombre} {Apellido}');
 			//WHERE
+			$crud->where('inventario.ID_Sucursal', $_COOKIE['suc_id']);
 			//$crud->where('comercio.log_id', $_COOKIE['log_id']);
 			//DESPUES DE INSERTAR CUALQUIER PRODUCTO
 			$crud->callback_before_insert(array($this, 'InsertarID'));
