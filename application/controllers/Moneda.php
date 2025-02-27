@@ -151,8 +151,10 @@ class Moneda extends CI_Controller {
 	}
 
 	function Whatsapp($primary_key){
+		$moneda = "SELECT ID_Sucursal FROM moneda WHERE ID = ".$primary_key;
+		$mon = $this->db->query($moneda)->row();
 		$url = base_url(); 
-		return $url.'index.php/moneda/ImprimirWhatsapp?id='.$primary_key;
+		return $url.'index.php/Moneda/ImprimirWhatsapp?id='.$primary_key."&suc=".$mon->ID_Sucursal;
 	}
 
 	public function ImprimirFactura()
@@ -199,17 +201,17 @@ class Moneda extends CI_Controller {
 
 	public function ImprimirWhatsapp()
 	{
-		$admin = "SELECT * FROM cajeros WHERE ID = 1";
+		$admin = "SELECT * FROM Cajeros WHERE ID = 1";
 		$adm = $this->db->query($admin)->row();
-		$moneda = "SELECT * FROM moneda WHERE ID = ".$_GET['id'];
+		$moneda = "SELECT * FROM Moneda WHERE ID = ".$_GET['id'];
 		$mon = $this->db->query($moneda)->row();
 		$fechamon = $mon->Fecha;
 		$fecha = (new DateTime($fechamon))->format('Y-m-d');
-		$gastos = "SELECT * FROM gasto_venta WHERE DATE(Fecha) = '".$fecha."'";
+		$gastos = "SELECT * FROM gasto_venta WHERE DATE(Fecha) = '".$fecha."' AND ID_Sucursal = ".$_GET['suc'];
 		$gas = $this->db->query($gastos)->result();
-		$inventario = "SELECT * FROM inventario";
+		$inventario = "SELECT * FROM inventario WHERE ID_Sucursal = ".$_GET['suc'];
 		$inv = $this->db->query($inventario)->result();
-		$cajero = "SELECT * FROM cajeros WHERE ID = ".$_COOKIE['caj_id'];
+		$cajero = "SELECT * FROM Cajeros WHERE ID = ".$_COOKIE['caj_id'];
 		$caj = $this->db->query($cajero)->row();
 		$data = (object)array('adm' => $adm,'mon' => $mon,'gas' => $gas,'inv' => $inv,'caj' => $caj);
 		//header("Location: https://web.whatsapp.com/send?phone=504".$adm->Celular."&text=Hola");
