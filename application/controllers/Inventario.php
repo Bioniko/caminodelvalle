@@ -80,7 +80,11 @@ class Inventario extends CI_Controller {
 		return $post_array;
     }
 	public function InventarioNuevo() {
+<<<<<<< HEAD
 		$Inventario = "SELECT * FROM inventario WHERE ID_Sucursal = ".$_COOKIE['suc_id'];
+=======
+		$Inventario = "SELECT * FROM inventario WHERE  ID_Sucursal = ".$_COOKIE['suc_id'];
+>>>>>>> 892274c150c60fda39bcc40cc1988cc0ac7553e7
 		$inv = $this->db->query($Inventario)->result();
 		$data = (object)array('inv' => $inv);
 		$this->load->view('1inventarionuevo.php',(array)$data);
