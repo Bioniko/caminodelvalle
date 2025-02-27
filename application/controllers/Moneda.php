@@ -201,7 +201,7 @@ class Moneda extends CI_Controller {
 
 	public function ImprimirWhatsapp()
 	{
-		$admin = "SELECT * FROM Cajeros WHERE ID = 1";
+		$admin = "SELECT * FROM cajeros WHERE ID = 1";
 		$adm = $this->db->query($admin)->row();
 		$moneda = "SELECT * FROM Moneda WHERE ID = ".$_GET['id'];
 		$mon = $this->db->query($moneda)->row();
@@ -211,7 +211,7 @@ class Moneda extends CI_Controller {
 		$gas = $this->db->query($gastos)->result();
 		$inventario = "SELECT * FROM inventario WHERE ID_Sucursal = ".$_GET['suc'];
 		$inv = $this->db->query($inventario)->result();
-		$cajero = "SELECT * FROM Cajeros WHERE ID = ".$_COOKIE['caj_id'];
+		$cajero = "SELECT * FROM cajeros WHERE ID = ".$_COOKIE['caj_id'];
 		$caj = $this->db->query($cajero)->row();
 		$data = (object)array('adm' => $adm,'mon' => $mon,'gas' => $gas,'inv' => $inv,'caj' => $caj);
 		//header("Location: https://web.whatsapp.com/send?phone=504".$adm->Celular."&text=Hola");
