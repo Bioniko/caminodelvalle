@@ -48,6 +48,12 @@ if($_SESSION['tipo_acceso'] != 'Admin'){
 </style>
 <body>
 <?php
+$local = "";
+if($_GET['rest'] == "0"){
+    $local = "Todos los Restaurantes";
+}else{
+    $local = $suc->Nombre;
+}
     //print_r($gas);
     $TotalVenta = 0.00;
     foreach ($mon as $mon2) {
@@ -103,7 +109,7 @@ if($_SESSION['tipo_acceso'] != 'Admin'){
                                 </div>
                                 <table class="table table-bordered">
                                     <tr>
-                                        <th colspan="2" style="text-align: center">Camino del Valle - <?php echo $_COOKIE['Nombre'];?></th>
+                                        <th colspan="2" style="text-align: center">Camino del Valle - <?php echo $local;?></th>
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="cen"><?php echo "Desde: ".$_GET['Desde']." Hasta: ".$_GET['Hasta'];?></td>

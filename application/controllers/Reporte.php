@@ -31,48 +31,33 @@ class Reporte extends CI_Controller {
 
 	public function Show()
 	{
-		try{
-			$crud = new grocery_CRUD();
-			//UNSET
-			$crud->unset_print();
-			$crud->unset_clone();
-			$crud->unset_export();
-			$crud->unset_add();
-			//DISPLAY
-			$crud->display_as('com_nombre','Nombre');
-			$crud->display_as('com_icono','Icono');
-			//THEME
-			$crud->set_theme('flexigrid');
-			//TABLA A LEER
-			$crud->set_table('bitacora');
-			//COLUMNAS A MOSTRAR
-			$crud->columns('ID_Sucursal','ID_Cajero','Accion','Fecha');
-			//Set Relation
-			$crud->set_relation('ID_Sucursal', 'sucursal', 'Nombre');
-			$crud->set_relation('ID_Cajero', 'cajeros', '{Nombre} {Apellido}');
-			//CAMPOS A VISUALIZAR
-			$crud->add_fields('com_nombre', 'com_icono');
-    		$crud->edit_fields('com_nombre', 'com_icono');
-			//WHERE
-			//$crud->where('comercio.log_id', $_COOKIE['log_id']);
-			//DESPUES DE INSERTAR CUALQUIER PRODUCTO
-			$output = $crud->render();
-			$this->_example_output($output);
-
-		}catch(Exception $e){
-			show_error($e->getMessage().' --- '.$e->getTraceAsString());
-		}
+		$sucursal = "SELECT * FROM sucursal";
+		$suc = $this->db->query($sucursal)->result();
+		$data = (object)array('suc' => $suc);
+		$this->load->view('1reporte.php',(array)$data);
 	}
 	public function Ver()
 	{
-		if(isset($_GET['Desde']) && !Empty($_GET['Desde']) && isset($_GET['Hasta']) && !Empty($_GET['Hasta'])){		
-			$admin = "SELECT * FROM cajeros WHERE ID = 1";
-			$adm = $this->db->query($admin)->row();
-			$moneda = "SELECT * FROM moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
-			$mon = $this->db->query($moneda)->result();
-			$gastos = "SELECT * FROM gasto_venta WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
-			$gas = $this->db->query($gastos)->result();
-			$data = (object)array('adm' => $adm,'mon' => $mon,'gas' => $gas);
+		if(isset($_GET['Desde']) && !Empty($_GET['Desde']) && isset($_GET['Hasta']) && !Empty($_GET['Hasta'])){	
+			if($_GET['rest'] == "0"){
+				$admin = "SELECT * FROM Cajeros WHERE ID = 1";
+				$adm = $this->db->query($admin)->row();
+				$moneda = "SELECT * FROM Moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
+				$mon = $this->db->query($moneda)->result();
+				$gastos = "SELECT * FROM gasto_venta WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
+				$gas = $this->db->query($gastos)->result();
+				$data = (object)array('adm' => $adm,'mon' => $mon,'gas' => $gas);
+			}else{
+				$admin = "SELECT * FROM Cajeros WHERE ID = 1";
+				$adm = $this->db->query($admin)->row();
+				$moneda = "SELECT * FROM Moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."' AND ID_Sucursal = ".$_GET['rest'];
+				$mon = $this->db->query($moneda)->result();
+				$gastos = "SELECT * FROM gasto_venta WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."' AND ID_Sucursal = ".$_GET['rest'];
+				$gas = $this->db->query($gastos)->result();
+				$sucursal = "SELECT * FROM sucursal WHERE ID = ".$_GET['rest'];
+				$suc = $this->db->query($sucursal)->row();
+				$data = (object)array('adm' => $adm,'mon' => $mon,'gas' => $gas,'suc' => $suc);
+			}	
 		}
 		$this->load->view('1resultado.php',(array)$data);
 	}
@@ -80,9 +65,9 @@ class Reporte extends CI_Controller {
 	public function WhatsappReporte()
 	{
 		if(isset($_GET['Desde']) && !Empty($_GET['Desde']) && isset($_GET['Hasta']) && !Empty($_GET['Hasta'])){		
-			$admin = "SELECT * FROM cajeros WHERE ID = 1";
+			$admin = "SELECT * FROM Cajeros WHERE ID = 1";
 			$adm = $this->db->query($admin)->row();
-			$moneda = "SELECT * FROM moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
+			$moneda = "SELECT * FROM Moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
 			$mon = $this->db->query($moneda)->result();
 			$gastos = "SELECT * FROM gasto_venta gv LEFT JOIN tipo_gasto tg ON gv.ID_Gasto = tg.ID WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."' ORDER BY ID_Gasto";
 			$gas = $this->db->query($gastos)->result();

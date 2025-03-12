@@ -2,10 +2,6 @@
 <html>
 <head>
 <?php include "head.php"; ?>
-<?php 
-foreach($css_files as $file): ?>
-	<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
-<?php endforeach; ?>
 </head>
 <style>
     body {
@@ -89,6 +85,19 @@ foreach($css_files as $file): ?>
                                 <div>
                                     <label for="endDate">Fecha Hasta:</label>
                                     <input type="date" id="endDate" name="Hasta" required>
+                                </div>
+                                <div>
+                                    <label for="endDate">Restaurante:</label>
+                                    <select id="rest" name="rest" class="form-control" required>
+                                        <option value="0">Todo los restaurantes</option>
+                                        <?php 
+                                        foreach ($suc as $suc) {
+                                        ?>
+                                        <option value="<?php echo $suc->ID;?>"><?php echo $suc->Nombre;?></option>
+                                        <?php 
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
                                 <p class="error" id="error">La fecha "Desde" no puede ser mayor que la fecha "Hasta".</p>
                                 <button type="submit">Generar Reporte</button>
