@@ -40,17 +40,17 @@ class Reporte extends CI_Controller {
 	{
 		if(isset($_GET['Desde']) && !Empty($_GET['Desde']) && isset($_GET['Hasta']) && !Empty($_GET['Hasta'])){	
 			if($_GET['rest'] == "0"){
-				$admin = "SELECT * FROM Cajeros WHERE ID = 1";
+				$admin = "SELECT * FROM cajeros WHERE ID = 1";
 				$adm = $this->db->query($admin)->row();
-				$moneda = "SELECT * FROM Moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
+				$moneda = "SELECT * FROM moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
 				$mon = $this->db->query($moneda)->result();
 				$gastos = "SELECT * FROM gasto_venta WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."'";
 				$gas = $this->db->query($gastos)->result();
 				$data = (object)array('adm' => $adm,'mon' => $mon,'gas' => $gas);
 			}else{
-				$admin = "SELECT * FROM Cajeros WHERE ID = 1";
+				$admin = "SELECT * FROM cajeros WHERE ID = 1";
 				$adm = $this->db->query($admin)->row();
-				$moneda = "SELECT * FROM Moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."' AND ID_Sucursal = ".$_GET['rest'];
+				$moneda = "SELECT * FROM moneda WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."' AND ID_Sucursal = ".$_GET['rest'];
 				$mon = $this->db->query($moneda)->result();
 				$gastos = "SELECT * FROM gasto_venta WHERE DATE(Fecha) BETWEEN '".$_GET['Desde']."' AND '".$_GET['Hasta']."' AND ID_Sucursal = ".$_GET['rest'];
 				$gas = $this->db->query($gastos)->result();
