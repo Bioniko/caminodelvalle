@@ -71,8 +71,8 @@ class Login extends CI_Controller {
 					'Cajero' => 'Cajero'
 				));
 			//FUNCION MD5
-			$crud->callback_before_insert(array($this, 'MD5Password'));
-            $crud->callback_before_update(array($this, 'MD5Password'));
+			$crud->callback_before_insert(array($this, 'InsMD5Password'));
+            $crud->callback_before_update(array($this, 'UpdMD5Password'));
 			$output = $crud->render();
 			$this->_example_output($output);
 
@@ -81,7 +81,7 @@ class Login extends CI_Controller {
 		}
 	}
 
-	function MD5Password($post_array)
+	function UpdMD5Password($post_array)
 	{
 		$query = $this->db->query("SELECT Password FROM Login WHERE ID_Cajero = ".$post_array['ID_Cajero']);
 		if ($query->num_rows() > 0) { // Si hay filas
@@ -98,5 +98,12 @@ class Login extends CI_Controller {
 			$post_array['Password'] = MD5($pass.$salt);
 			return $post_array;
 		}
+	}
+	function InsMD5Password($post_array)
+	{
+		$pass = $post_array['Password'];
+		$salt = "billeton";
+		$post_array['Password'] = MD5($pass.$salt);
+		return $post_array;
 	}
 }
