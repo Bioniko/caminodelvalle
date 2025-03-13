@@ -92,11 +92,6 @@ class Login extends CI_Controller {
 				$post_array['Password'] = MD5($pass.$salt);
 			}
 			return $post_array;
-		}else{
-			$pass = $post_array['Password'];
-			$salt = "billeton";
-			$post_array['Password'] = MD5($pass.$salt);
-			return $post_array;
 		}
 	}
 	function InsMD5Password($post_array)
