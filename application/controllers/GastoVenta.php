@@ -36,13 +36,14 @@ class GastoVenta extends CI_Controller {
 			//UNSET
 			$crud->unset_print();
 			$crud->unset_clone();
-			$crud->unset_export();
+			
 			$crud->unset_read();
 			session_start();
 			date_default_timezone_set("America/Tegucigalpa");
 			$fechaHoy = date('Y-m-d');
 			$crud->order_by('Fecha','desc');
 			if($_SESSION['tipo_acceso'] == "Cajero"){
+			$crud->unset_export();
 			$crud->unset_delete();
 			$crud->columns('ID_Gasto','Valor','Descripcion','Foto','Fecha');
 			$crud->where('gasto_venta.ID_Sucursal', $_COOKIE['suc_id']);
