@@ -47,7 +47,7 @@ class GastoVenta extends CI_Controller {
 			$crud->unset_delete();
 			$crud->columns('ID_Gasto','Valor','Descripcion','Foto','Fecha');
 			$crud->where('gasto_venta.ID_Sucursal', $_COOKIE['suc_id']);
-			$crud->where('gasto_venta.ID_Cajero', $_COOKIE['caj_id']);
+			//$crud->where('gasto_venta.ID_Cajero', $_COOKIE['caj_id']);
 			$crud->where('DATE(Fecha)', $fechaHoy);
 			}else{
 			//COLUMNAS A MOSTRAR
