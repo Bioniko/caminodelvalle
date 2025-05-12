@@ -39,7 +39,7 @@ class Moneda extends CI_Controller {
 			date_default_timezone_set('America/Tegucigalpa');
 			$fechaHoy = date('Y-m-d');
 			$crud->order_by('Fecha','desc');
-			echo $fechaHoy."<br>".$_SESSION['tipo_acceso'];
+			//echo $fechaHoy."<br>".$_SESSION['tipo_acceso'];
 			$existe = $this->db->query("SELECT * FROM moneda WHERE DATE(Fecha) = '".$fechaHoy."' AND ID_Sucursal = ".$_COOKIE['suc_id']);
 			if($existe->num_rows() == 1 && $_SESSION['tipo_acceso'] == "Cajero"){
 				$crud->unset_add();
@@ -51,7 +51,7 @@ class Moneda extends CI_Controller {
 						   'Ocho','Deliverys','HugoBusiness','Speedy','Empleados','FamiliadelValle','Efectivo',
 						   'Otro','Caja_Fija','Descripcion','DescripcionInv','DescripcionDep');
 			$crud->where('moneda.ID_Sucursal', $_COOKIE['suc_id']);
-			$crud->where('moneda.ID_Cajero', $_COOKIE['caj_id']);
+			//$crud->where('moneda.ID_Cajero', $_COOKIE['caj_id']);
 			$crud->where('DATE(Fecha)', $fechaHoy);
 			}else{
 			//COLUMNAS A MOSTRAR
