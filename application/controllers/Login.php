@@ -83,7 +83,7 @@ class Login extends CI_Controller {
 
 	function UpdMD5Password($post_array)
 	{
-		$query = $this->db->query("SELECT Password FROM Login WHERE ID_Cajero = ".$post_array['ID_Cajero']);
+		$query = $this->db->query("SELECT Password FROM login WHERE ID_Cajero = ".$post_array['ID_Cajero']);
 		if ($query->num_rows() > 0) { // Si hay filas
 			$pw = $query->row(); // Obtener la fila
 			if ($pw->Password != $post_array['Password']) {
