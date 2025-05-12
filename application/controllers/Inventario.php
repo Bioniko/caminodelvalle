@@ -92,6 +92,10 @@ class Inventario extends CI_Controller {
 			$inv = $this->db->query($Inventario);
 			if ($this->db->affected_rows() > 0) {
 				echo "<script>alert('Actualización realizada correctamente.');</script>";
+				$Inventario = "SELECT * FROM inventario WHERE  ID_Sucursal = ".$_COOKIE['suc_id'];
+				$inv = $this->db->query($Inventario)->result();
+				$data = (object)array('inv' => $inv);
+				$this->load->view('1inventarionuevo.php',(array)$data);
 			} else {
 				echo "<script>alert('No se realizaron cambios. Verifica los datos proporcionados.');</script>";
 			}
