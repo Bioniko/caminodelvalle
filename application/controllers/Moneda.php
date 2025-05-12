@@ -39,7 +39,7 @@ class Moneda extends CI_Controller {
 			date_default_timezone_set('America/Tegucigalpa');
 			$fechaHoy = date('Y-m-d');
 			$crud->order_by('Fecha','desc');
-			//echo $fechaHoy;
+			echo $fechaHoy;
 			$existe = $this->db->query("SELECT * FROM moneda WHERE DATE(Fecha) = '".$fechaHoy."' AND ID_Sucursal = ".$_COOKIE['suc_id']);
 			if($existe->num_rows() == 1 && $_SESSION['tipo_acceso'] == "Cajero"){
 				$crud->unset_add();
