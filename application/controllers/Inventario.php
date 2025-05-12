@@ -98,7 +98,7 @@ class Inventario extends CI_Controller {
 		} catch (Exception $e) {
 			echo "<script>alert('Ocurrió un error al actualizar: " . $e->getMessage() . "');</script>";
 		}
-		$Inventario = "SELECT * FROM inventario";
+		$Inventario = "SELECT * FROM inventario WHERE  ID_Sucursal = ".$_COOKIE['suc_id'];
 		$inv = $this->db->query($Inventario)->result();
 		$data = (object)array('inv' => $inv);
 		$this->load->view('1inventarionuevo.php',(array)$data);
