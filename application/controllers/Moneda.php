@@ -163,9 +163,9 @@ class Moneda extends CI_Controller {
 		$mon = $this->db->query($moneda)->row();
 		$fechamon = $mon->Fecha;
 		$fecha = (new DateTime($fechamon))->format('Y-m-d');
-		$gastos = "SELECT * FROM gasto_venta WHERE DATE(Fecha) = '".$fecha."'";
+		$gastos = "SELECT * FROM gasto_venta WHERE DATE(Fecha) = '".$fecha."'AND ID_Sucursal = ".$_GET['suc'];
 		$gas = $this->db->query($gastos)->result();
-		$inventario = "SELECT * FROM inventario";
+		$inventario = "SELECT * FROM inventario WHERE ID_Sucursal = ".$_GET['suc'];
 		$inv = $this->db->query($inventario)->result();
 		$data = (object)array('mon' => $mon,'gas' => $gas,'inv' => $inv);
 		$this->load->view('1factura.php',(array)$data);
