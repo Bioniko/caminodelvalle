@@ -131,8 +131,10 @@ class Moneda extends CI_Controller {
 		}
 	}
 	function Factura($primary_key){
-		$url = base_url(); 
-		return $url.'index.php/moneda/ImprimirFactura?id='.$primary_key;
+		$moneda = "SELECT ID_Sucursal FROM moneda WHERE ID = ".$primary_key;
+		$mon = $this->db->query($moneda)->row();
+		$url = base_url();
+		return $url.'index.php/moneda/ImprimirFactura?id='.$primary_key."&suc=".$mon->ID_Sucursal;
 	}
 
 	function Caja($primary_key){
