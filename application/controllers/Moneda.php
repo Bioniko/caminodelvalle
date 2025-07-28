@@ -143,7 +143,9 @@ class Moneda extends CI_Controller {
 	}
 
 	function Inventario($primary_key){
-		$url = base_url(); 
+		$moneda = "SELECT ID_Sucursal FROM moneda WHERE ID = ".$primary_key;
+		$mon = $this->db->query($moneda)->row();
+		$url = base_url();
 		return $url.'index.php/moneda/ImprimirInventario?id='.$primary_key."&suc=".$mon->ID_Sucursal;
 	}
 
