@@ -144,7 +144,7 @@ class Moneda extends CI_Controller {
 
 	function Inventario($primary_key){
 		$url = base_url(); 
-		return $url.'index.php/moneda/ImprimirInventario?id='.$primary_key;
+		return $url.'index.php/moneda/ImprimirInventario?id='.$primary_key."&suc=".$mon->ID_Sucursal;
 	}
 
 	function Deposito($primary_key){
@@ -185,7 +185,7 @@ class Moneda extends CI_Controller {
 	{
 		$moneda = "SELECT * FROM moneda WHERE ID = ".$_GET['id'];
 		$mon = $this->db->query($moneda)->row();
-		$inventario = "SELECT * FROM inventario";
+		$inventario = "SELECT * FROM inventario WHERE ID_Sucursal = ".$_GET['suc'];
 		$inv = $this->db->query($inventario)->result();
 		$data = (object)array('mon' => $mon,'inv' => $inv);
 		$this->load->view('1inventariofac.php',(array)$data);
