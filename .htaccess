@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+$ 
+RewriteRule ^$ /index.php/Inicio [L,R=301]
+
